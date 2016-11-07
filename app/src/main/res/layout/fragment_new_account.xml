@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2016 DSpot Sp. z o.o
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed To in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dspot.declex.example.expenses.fragment.NewAccountFragment">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bkg_create_user"
+        android:layout_alignParentBottom="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/origin_20dp">
+
+        <ImageView
+            android:id="@+id/tag"
+            android:layout_width="@dimen/origin_8dp"
+            android:layout_height="@dimen/origin_16dp"
+            android:src="@drawable/gray_tag"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/create_account_title"
+            android:id="@+id/textView"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/origin_16sp_text_size"
+            android:layout_toRightOf="@+id/tag"
+            android:layout_alignBottom="@+id/tag"
+            android:layout_centerVertical="true"
+            android:layout_alignTop="@+id/tag"
+            android:layout_marginLeft="@dimen/origin_10dp"/>
+        <RelativeLayout
+            android:id="@+id/form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="@dimen/origin_50dp">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:padding="@dimen/origin_10dp"
+                android:ems="10"
+                android:id="@+id/signUp_name"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/name"
+                android:textSize="@dimen/origin_16sp_text_size"
+                android:background="@drawable/bkg_text_edit"
+                android:textColorHint="@color/gray1"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/origin_10dp"
+                android:ems="10"
+                android:id="@+id/signUp_username"
+                android:layout_below="@+id/signUp_name"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/email"
+                android:textSize="@dimen/origin_16sp_text_size"
+                android:background="@drawable/bkg_text_edit"
+                android:layout_marginTop="@dimen/origin_20dp"
+                android:textColorHint="@color/gray1"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:padding="@dimen/origin_10dp"
+                android:ems="10"
+                android:id="@+id/signUp_password"
+                android:layout_below="@+id/signUp_username"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/password"
+                android:textSize="@dimen/origin_16sp_text_size"
+                android:background="@drawable/bkg_text_edit"
+                android:textColorHint="@color/gray1"
+                android:layout_marginTop="@dimen/origin_20dp"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:padding="@dimen/origin_10dp"
+                android:ems="10"
+                android:id="@+id/signUp_confirmedPassword"
+                android:layout_below="@+id/signUp_password"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/password_confirm"
+                android:textColorHint="@color/gray1"
+                android:textSize="@dimen/origin_16sp_text_size"
+                android:background="@drawable/bkg_text_edit"
+                android:layout_marginTop="@dimen/origin_20dp"/>
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create"
+            android:id="@+id/btnSignUp"
+            android:layout_centerHorizontal="true"
+            style="@style/yellowBtn"
+            android:layout_alignRight="@+id/form"
+            android:layout_alignLeft="@+id/form"
+            android:layout_marginTop="@dimen/origin_60dp"
+            android:layout_below="@+id/form"/>
+    </RelativeLayout>
+</RelativeLayout>

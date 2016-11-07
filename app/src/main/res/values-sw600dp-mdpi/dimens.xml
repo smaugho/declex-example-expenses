@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2016 DSpot Sp. z o.o
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed To in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<resources>  
+	<!-- General Text Size -->
+	<dimen name="origin_10sp_text_size">16sp</dimen>
+	<dimen name="origin_11sp_text_size">18sp</dimen>
+    <dimen name="origin_12sp_text_size">20sp</dimen>
+    <dimen name="origin_13sp_text_size">22sp</dimen>
+    <dimen name="origin_14sp_text_size">24sp</dimen>
+    <dimen name="origin_15sp_text_size">26sp</dimen>
+    <dimen name="origin_16sp_text_size">28sp</dimen>
+    <dimen name="origin_17sp_text_size">30sp</dimen>
+    <dimen name="origin_18sp_text_size">32sp</dimen>
+    <dimen name="origin_20sp_text_size">36sp</dimen>
+    <dimen name="origin_22sp_text_size">40sp</dimen>
+    <dimen name="origin_24sp_text_size">44sp</dimen>
+    <dimen name="origin_26sp_text_size">46sp</dimen>
+    <dimen name="origin_38sp_text_size">70sp</dimen>
+  
+    <!-- General Dp-Size, Margin,Padding> -->
+    <dimen name="origin_1dp">2dp</dimen>
+    <dimen name="origin_2dp">4dp</dimen>
+    <dimen name="origin_4dp">8dp</dimen>
+    <dimen name="origin_6dp">12dp</dimen>
+    <dimen name="origin_8dp">16dp</dimen>
+    <dimen name="origin_10dp">20dp</dimen>
+    <dimen name="origin_12dp">24dp</dimen>
+    <dimen name="origin_14dp">28dp</dimen>
+    <dimen name="origin_16dp">32dp</dimen>
+    <dimen name="origin_18dp">36dp</dimen>
+    <dimen name="origin_20dp">40dp</dimen>
+    <dimen name="origin_26dp">52dp</dimen>
+    <dimen name="origin_30dp">60dp</dimen>
+    <dimen name="origin_36dp">72dp</dimen>
+    <dimen name="origin_40dp">80dp</dimen>
+    <dimen name="origin_42dp">84dp</dimen>
+    <dimen name="origin_50dp">100dp</dimen>
+    <dimen name="origin_60dp">120dp</dimen>
+    <dimen name="origin_70dp">140dp</dimen>
+    <dimen name="origin_76dp">152dp</dimen>
+    <dimen name="origin_90dp">180dp</dimen>
+    <dimen name="origin_100dp">200dp</dimen>
+    <dimen name="origin_110dp">220dp</dimen>
+    <dimen name="origin_120dp">240dp</dimen>
+    <dimen name="origin_130dp">260dp</dimen>
+    <dimen name="origin_140dp">280dp</dimen>
+    <dimen name="origin_160dp">320dp</dimen>
+    <dimen name="origin_180dp">360dp</dimen>
+    <dimen name="origin_200dp">400dp</dimen>
+    <dimen name="origin_220dp">440dp</dimen>
+	<dimen name="origin_260dp">520dp</dimen>
+    <dimen name="origin_300dp">600dp</dimen>
+    <dimen name="origin_320dp">640dp</dimen>
+    
+</resources>

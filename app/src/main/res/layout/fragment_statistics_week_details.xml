@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2016 DSpot Sp. z o.o
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed To in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.UsersListFragment"
+    android:background="@color/white0">
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/origin_20dp">
+        <ImageView
+            android:id="@+id/tag"
+            android:layout_width="@dimen/origin_8dp"
+            android:layout_height="@dimen/origin_16dp"
+            android:src="@drawable/gray_tag"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/expenses_week_list_title"
+            android:id="@+id/textView"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/origin_16sp_text_size"
+            android:layout_toRightOf="@+id/tag"
+            android:layout_centerVertical="true"
+            android:layout_alignTop="@+id/tag"
+            android:layout_marginLeft="@dimen/origin_10dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:background="#f9f9f9"
+        android:padding="@dimen/origin_18dp">
+        <ImageView
+            android:id="@+id/leftImg"
+            android:layout_width="@dimen/origin_60dp"
+            android:layout_height="@dimen/origin_60dp"
+            android:src="@drawable/week_calendar"
+            android:layout_marginRight="@dimen/origin_10dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/leftImg">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/week"
+                android:textColor="@color/gray1"
+                android:id="@+id/label_week"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/origin_17sp_text_size"
+                android:layout_marginTop="@dimen/origin_8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="12/08/2016 - 18/08/2016"
+                android:textColor="@color/blue_gray"
+                android:id="@+id/weekExpense_range"
+                android:textStyle="normal"
+                android:layout_marginTop="@dimen/origin_4dp"
+                android:layout_below="@+id/label_week"
+                android:textSize="@dimen/origin_12sp_text_size" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/origin_1dp"
+        android:background="#15000000"
+        android:layout_marginLeft="@dimen/origin_20dp"
+        android:layout_marginRight="@dimen/origin_20dp"
+        android:layout_below="@+id/week"
+        android:orientation="horizontal">
+    </LinearLayout>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/origin_10dp"
+        android:id="@+id/expenses"
+        android:dividerHeight="@dimen/origin_4dp"
+        android:layout_below="@+id/line1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        tools:listitem="@layout/item_expense_day"
+        android:layout_above="@+id/linearLayout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#f9f9f9"
+        android:paddingLeft="@dimen/origin_30dp"
+        android:paddingRight="@dimen/origin_30dp"
+        android:paddingBottom="@dimen/origin_20dp"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+        <LinearLayout
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/origin_1dp"
+            android:background="#15000000"
+            android:layout_marginBottom="@dimen/origin_20dp"
+            android:orientation="horizontal">
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/total"
+                android:textColor="@color/gray1"
+                android:id="@+id/label_total"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/origin_13sp_text_size"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="$700"
+                android:textColor="@color/green"
+                android:id="@+id/weekExpense_total"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/label_total"
+                android:layout_alignBottom="@id/label_total"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/origin_14sp_text_size" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/avg"
+                android:textColor="@color/gray1"
+                android:id="@+id/label_avg"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/origin_13sp_text_size"
+                android:layout_marginTop="@dimen/origin_8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="$100"
+                android:textColor="@color/green"
+                android:id="@+id/weekExpense_average"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/label_avg"
+                android:layout_alignBottom="@id/label_avg"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/origin_14sp_text_size" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

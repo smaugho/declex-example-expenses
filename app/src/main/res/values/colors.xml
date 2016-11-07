@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2016 DSpot Sp. z o.o
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed To in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<resources>
+    <color name="colorPrimary">#77c0af</color>
+    <color name="colorPrimaryDark">#408477</color>
+    <color name="navigationBarColor">#6a6a6a</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="gray0">#cad4d6</color>
+    <color name="gray1">#818586</color>
+    <color name="gray2">#656869</color>
+    <color name="white0">#ffffff</color>
+    <color name="white1">#f4f4f4</color>
+    <color name="yellow">#f1c40f</color>
+    <color name="blue_gray">#5b6672</color>
+    <color name="green">#50b977</color>
+
+</resources>

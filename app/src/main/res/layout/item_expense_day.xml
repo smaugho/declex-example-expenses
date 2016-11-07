@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2016 DSpot Sp. z o.o
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed To in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white0"
+    android:padding="@dimen/origin_18dp">
+    <ImageView
+        android:id="@+id/leftImg"
+        android:layout_width="@dimen/origin_30dp"
+        android:layout_height="@dimen/origin_30dp"
+        android:src="@drawable/day_calendar"
+        android:layout_marginRight="@dimen/origin_10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/leftImg"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Monday, 12 Jun 2015"
+                android:textColor="@color/gray1"
+                android:id="@+id/datetime"
+                android:textStyle="bold"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/origin_13sp_text_size"
+                android:layout_marginTop="@dimen/origin_8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="$100"
+                android:textColor="@color/green"
+                android:id="@+id/amount"
+                android:textStyle="normal"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/datetime"
+                android:layout_alignBottom="@id/datetime"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/origin_13sp_text_size" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
