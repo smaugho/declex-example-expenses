@@ -13,3 +13,6 @@ The application it is basically an expenses manager, where after registered, the
 Written 100% with DecleX it demostrate how powerful can be the framework to easily make an application with already some grade of complexity.
 
 Feel free to Collaborate with the example, or propose new examples for [DecleX Framework](https://github.com/smaugho/declex).
+
+-----------
+Sponsored by DSpot Sp. z o.o. Contact us at info@dspot.com.pl
