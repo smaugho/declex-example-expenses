@@ -30,6 +30,8 @@ import org.androidannotations.annotations.FragmentArg;
 
 import java.util.List;
 
+import static com.dspot.declex.Action.$StatisticsFragment;
+
 /**
  * Created by Adrián Rivero.
  */
@@ -47,5 +49,5 @@ public class StatisticsDetailsFragment extends Fragment {
     List<Expense_> expenses;
 
     @Action
-    StatisticsFragment onBackPressedEvent;
+    $StatisticsFragment onBackPressedEvent;
 }

@@ -1,21 +1,17 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'android-apt'
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
-apt {
-    arguments {
-        androidManifestFile variant.outputs[0].processResources.manifestFile
-        resourcePackageName 'com.dspot.declex.example.expenses'
-
-        logLevel 'DEBUG'
-    }
+dependencies {
+    apt 'com.dspot:declex:1.1'
+    compile 'com.dspot:declex-api:1.1'
 }
 
 android {
@@ -39,9 +35,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    apt 'com.dspot:declex:1.1'
-    compile 'com.dspot:declex-api:1.1'
 
     compile 'com.android.support:appcompat-v7:22.+'
     compile 'com.android.support:support-v4:22.+'

@@ -26,6 +26,7 @@ import com.dspot.declex.api.model.UseModel;
 import com.dspot.declex.api.server.ServerModel;
 import com.dspot.declex.api.server.ServerRequest;
 import com.dspot.declex.event.UpdateUIEvent_;
+import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import org.androidannotations.annotations.EBean;
@@ -87,9 +88,13 @@ public class Expense extends BaseModel {
 
     @Column String comment = "";
 
+    @NotEmpty
     @Column float amount;
 
+    @NotEmpty
     @Column String date = "";
+
+    @NotEmpty
     @Column String time = "";
 
     @Column long user_id;
