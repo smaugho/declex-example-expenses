@@ -17,14 +17,14 @@ package com.dspot.declex.example.expenses.activity;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.dspot.declex.example.expenses.R;
-import com.dspot.declex.example.expenses.model.User_;
 import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.event.BackPressedEvent_;
+import com.dspot.declex.example.expenses.R;
+import com.dspot.declex.example.expenses.model.User_;
 
 import org.androidannotations.annotations.EActivity;
 
+import static com.dspot.declex.Action.$BackPressedEvent;
 import static com.dspot.declex.Action.$LoginFragment;
 import static com.dspot.declex.Action.$MainActivity;
 
@@ -48,8 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Action
     @Override
     public void onBackPressed() {
-        BackPressedEvent_.post();
+        $BackPressedEvent();
     }
 }

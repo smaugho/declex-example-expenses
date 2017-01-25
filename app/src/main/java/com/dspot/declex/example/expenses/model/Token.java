@@ -19,10 +19,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.dspot.declex.api.localdb.LocalDBModel;
 import com.dspot.declex.api.model.AfterLoad;
-import com.dspot.declex.api.model.UseModel;
 import com.dspot.declex.event.Logout_;
-
-import org.androidannotations.annotations.EBean;
 
 /**
  * Created by Adrián Rivero.
@@ -33,8 +30,6 @@ import org.androidannotations.annotations.EBean;
 		"AND ({System.currentTimeMillis()}-(expires_in*1000)) < time"
 )
 
-@EBean
-@UseModel
 public class Token extends Model {
 
 	@Column	String access_token;

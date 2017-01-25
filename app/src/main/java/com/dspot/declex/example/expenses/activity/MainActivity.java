@@ -15,42 +15,33 @@
  */
 package com.dspot.declex.example.expenses.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.activeandroid.query.Delete;
-import com.dspot.declex.example.expenses.Config;
-import com.dspot.declex.example.expenses.R;
-import com.dspot.declex.example.expenses.model.Expense_;
-import com.dspot.declex.example.expenses.model.User_;
 import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
-import com.dspot.declex.api.eventbus.UseEventBus;
 import com.dspot.declex.api.model.Model;
 import com.dspot.declex.api.populator.Populator;
-import com.dspot.declex.event.BackPressedEvent_;
 import com.dspot.declex.event.Logout_;
 import com.dspot.declex.event.UpdateUIEvent;
+import com.dspot.declex.example.expenses.R;
+import com.dspot.declex.example.expenses.model.Expense_;
+import com.dspot.declex.example.expenses.model.User_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Calendar;
-
+import static com.dspot.declex.Action.$BackPressedEvent;
 import static com.dspot.declex.Action.$ExpensesListFragment;
+import static com.dspot.declex.Action.$LoginActivity;
 import static com.dspot.declex.Action.$ProfileFragment;
 import static com.dspot.declex.Action.$StatisticsFragment;
 
@@ -58,7 +49,6 @@ import static com.dspot.declex.Action.$StatisticsFragment;
  * Created by Adrián Rivero.
  */
 
-@UseEventBus
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -134,13 +124,15 @@ public class MainActivity extends AppCompatActivity implements
     void onLogout() {
         new Delete().from(User_.class).execute();
         new Delete().from(Expense_.class).execute();
-        LoginActivity_.intent(this).start();
+
+        $LoginActivity();
         finish();
     }
 
+    @Action
     @Override
     public void onBackPressed() {
-        BackPressedEvent_.post();
+        $BackPressedEvent();
     }
 
 }

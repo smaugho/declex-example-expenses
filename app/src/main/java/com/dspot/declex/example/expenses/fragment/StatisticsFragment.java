@@ -17,13 +17,12 @@ package com.dspot.declex.example.expenses.fragment;
 
 import android.support.v4.app.Fragment;
 
+import com.dspot.declex.api.eventbus.Event;
+import com.dspot.declex.api.model.Model;
+import com.dspot.declex.api.populator.Populator;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.WeekExpense;
 import com.dspot.declex.example.expenses.model.WeekExpense_;
-import com.dspot.declex.api.eventbus.Event;
-import com.dspot.declex.api.eventbus.UseEventBus;
-import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Populator;
 
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ItemClick;
@@ -36,7 +35,6 @@ import static com.dspot.declex.Action.$StatisticsDetailsFragment;
  * Created by Adrián Rivero.
  */
 
-@UseEventBus
 @EFragment(R.layout.fragment_statistics)
 public class StatisticsFragment extends Fragment {
 

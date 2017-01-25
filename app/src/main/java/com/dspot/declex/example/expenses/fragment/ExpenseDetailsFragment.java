@@ -17,31 +17,27 @@ package com.dspot.declex.example.expenses.fragment;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.TextView;
 
-import com.dspot.declex.example.expenses.Config;
-import com.dspot.declex.example.expenses.R;
-import com.dspot.declex.example.expenses.model.Expense_;
 import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
-import com.dspot.declex.api.eventbus.UseEventBus;
 import com.dspot.declex.api.model.Model;
 import com.dspot.declex.api.populator.Populator;
 import com.dspot.declex.api.populator.Recollector;
 import com.dspot.declex.event.UpdateUIEvent;
-import com.dspot.declex.example.expenses.util.BaseAnimationListener;
+import com.dspot.declex.example.expenses.R;
+import com.dspot.declex.example.expenses.model.Expense_;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.AnimationRes;
 
 import java.util.Locale;
 
 import static com.dspot.declex.Action.$AlertDialog;
+import static com.dspot.declex.Action.$Animate;
 import static com.dspot.declex.Action.$DateDialog;
 import static com.dspot.declex.Action.$ExpensesListFragment;
 import static com.dspot.declex.Action.$PutModel;
@@ -51,7 +47,6 @@ import static com.dspot.declex.Action.$TimeDialog;
  * Created by Adrián Rivero.
  */
 
-@UseEventBus
 @EFragment(R.layout.fragment_expense_details)
 public class ExpenseDetailsFragment extends Fragment {
 
@@ -65,14 +60,8 @@ public class ExpenseDetailsFragment extends Fragment {
     @Recollector
     Expense_ expense;
 
-    @AnimationRes
-    Animation dialog_show, dialog_hide;
-
     @ViewById
     View modalEditExpense;
-
-    @Action
-    $ExpensesListFragment backPressed;
 
     @Click
     void deleteExpense() {
@@ -85,7 +74,7 @@ public class ExpenseDetailsFragment extends Fragment {
 
     @Click
     void editExpense() {
-        modalEditExpense.startAnimation(dialog_show);
+        $Animate(modalEditExpense, R.anim.dialog_show);
         modalEditExpense.setVisibility(View.VISIBLE);
     }
 
@@ -95,22 +84,12 @@ public class ExpenseDetailsFragment extends Fragment {
         $PutModel(expense).orderBy("update");
     }
 
-    void hideDialog() {
-        dialog_hide.setAnimationListener(new BaseAnimationListener() {
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                modalEditExpense.setVisibility(View.INVISIBLE);
-            }
-        });
-        modalEditExpense.startAnimation(dialog_hide);
-    }
-
     @Click
     void expense_date(TextView expense_date) {
         $DateDialog();
 
         int $year = 0, $month = 0, $day = 0;
-        expense_date.setText(String.format(Locale.US, "%02d-%02d-%02d", $year, $month, $day));
+        expense_date.setText(String.format(Locale.US, "%04d-%02d-%02d", $year, $month + 1, $day));
     }
 
     @Click
@@ -121,12 +100,20 @@ public class ExpenseDetailsFragment extends Fragment {
         expense_time.setText(String.format(Locale.US, "%02d:%02d", $hour, $minute));
     }
 
+    @Action
+    void hideDialog() {
+        $Animate(modalEditExpense, R.anim.dialog_hide);
+        if ($Animate.Ended) {
+            modalEditExpense.setVisibility(View.INVISIBLE);
+        }
+    }
+
     @Event
     void onBackPressedEvent() {
         if (modalEditExpense.getVisibility() == View.VISIBLE) {
             hideDialog();
         } else {
-            backPressed.fire();
+            $ExpensesListFragment();
         }
     }
 }

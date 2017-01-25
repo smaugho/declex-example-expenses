@@ -18,24 +18,22 @@ package com.dspot.declex.example.expenses.model;
 import android.content.Context;
 
 import com.activeandroid.annotation.Column;
-import com.dspot.declex.example.expenses.Config;
 import com.dspot.declex.api.localdb.LocalDBModel;
 import com.dspot.declex.api.localdb.LocalDBTransaction;
 import com.dspot.declex.api.model.AfterLoad;
 import com.dspot.declex.api.model.AfterPut;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.model.UseModel;
 import com.dspot.declex.api.server.SerializeCondition;
 import com.dspot.declex.api.server.ServerModel;
 import com.dspot.declex.api.server.ServerRequest;
 import com.dspot.declex.api.util.annotation.CopyIgnore;
 import com.dspot.declex.event.UpdateUIEvent_;
+import com.dspot.declex.example.expenses.Config;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
-import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import java.util.List;
@@ -43,8 +41,6 @@ import java.util.List;
 /**
  * Created by Adrián Rivero.
  */
-
-@LocalDBModel( defaultQuery = "current=1")
 
 @ServerModel(
     baseUrl= Config.SERVER,
@@ -82,8 +78,7 @@ import java.util.List;
     }
 )
 
-@EBean
-@UseModel
+@LocalDBModel( defaultQuery = "current=1")
 public class User extends BaseModel {
     @Model
     static Token_ token;
@@ -109,8 +104,6 @@ public class User extends BaseModel {
     @ConfirmPassword
     String confirmedPassword;
 
-    @CopyIgnore
-    @SerializeCondition("false")
     @Column boolean current;
 
     @AfterLoad
@@ -118,8 +111,10 @@ public class User extends BaseModel {
     @LocalDBTransaction
     void loadedFromServer(List<User_> models) {
         if (models != null) {
+            User_.getCurrentUser(context);
+
             for (User_ user : models) {
-                if (user.getRemoteId() == User_.getCurrentUser(context).getRemoteId()) {
+                if (user.getRemoteId() == currentUser.getRemoteId()) {
                     user.setCurrent(true);
                 }
                 user.save();

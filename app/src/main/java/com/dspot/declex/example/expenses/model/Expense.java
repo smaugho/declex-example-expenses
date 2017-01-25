@@ -16,20 +16,16 @@
 package com.dspot.declex.example.expenses.model;
 
 import com.activeandroid.annotation.Column;
-import com.dspot.declex.example.expenses.Config;
 import com.dspot.declex.api.localdb.LocalDBModel;
 import com.dspot.declex.api.localdb.LocalDBTransaction;
 import com.dspot.declex.api.model.AfterLoad;
 import com.dspot.declex.api.model.AfterPut;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.model.UseModel;
 import com.dspot.declex.api.server.ServerModel;
 import com.dspot.declex.api.server.ServerRequest;
 import com.dspot.declex.event.UpdateUIEvent_;
-import com.mobsandgeeks.saripaar.annotation.Digits;
+import com.dspot.declex.example.expenses.Config;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-
-import org.androidannotations.annotations.EBean;
 
 import java.util.List;
 import java.util.Locale;
@@ -37,10 +33,6 @@ import java.util.Locale;
 /**
  * Created by Adrián Rivero.
  */
-
-@UseModel
-@LocalDBModel
-
 
 @ServerModel(
     baseUrl= Config.SERVER,
@@ -78,7 +70,7 @@ import java.util.Locale;
     }
 )
 
-@EBean
+@LocalDBModel
 public class Expense extends BaseModel {
     @Model
     public static Token_ token;

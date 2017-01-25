@@ -10,8 +10,18 @@ buildscript {
     }
 }
 dependencies {
-    apt 'com.dspot:declex:1.1'
-    compile 'com.dspot:declex-api:1.1'
+    apt 'com.dspot:declex:1.2.9-SNAPSHOT'
+    compile 'com.dspot:declex-api:1.2.9-SNAPSHOT'
+}
+
+apt {
+    arguments {
+        // you should set your package name here if you are using different application IDs
+        // resourcePackageName "YOUR PACKAGE NAME HERE"
+
+        // You can set optional annotation processing options here, like these commented options:
+        logLevel 'DEBUG'
+    }
 }
 
 android {

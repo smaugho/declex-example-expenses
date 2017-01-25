@@ -16,21 +16,18 @@
 package com.dspot.declex.example.expenses.auth;
 
 import com.activeandroid.query.Delete;
+import com.dspot.declex.api.model.AfterPut;
+import com.dspot.declex.api.model.Model;
+import com.dspot.declex.api.server.ServerModel;
+import com.dspot.declex.api.server.ServerRequest;
 import com.dspot.declex.example.expenses.Config;
 import com.dspot.declex.example.expenses.model.Token_;
 import com.dspot.declex.example.expenses.model.User_;
-import com.dspot.declex.api.model.AfterPut;
-import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.model.UseModel;
-import com.dspot.declex.api.server.ServerModel;
-import com.dspot.declex.api.server.ServerRequest;
 import com.google.gson.annotations.SerializedName;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
-
-import org.androidannotations.annotations.EBean;
 
 /**
  * Created by Adrián Rivero.
@@ -56,8 +53,6 @@ import org.androidannotations.annotations.EBean;
     }
 )
 
-@UseModel
-@EBean
 public class Auth {
     String grant_type = "password";
     String client_id = Config.CLIENT_ID;

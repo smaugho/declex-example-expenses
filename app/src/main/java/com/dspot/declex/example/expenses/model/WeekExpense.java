@@ -18,9 +18,6 @@ package com.dspot.declex.example.expenses.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.dspot.declex.api.localdb.LocalDBModel;
-import com.dspot.declex.api.model.UseModel;
-
-import org.androidannotations.annotations.EBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,13 +32,10 @@ import java.util.Locale;
 
 @LocalDBModel(
     table = "expenses",
-    defaultQuery = "SELECT Id, date, strftime('%W', date) as week, SUM(amount) AS total " +
-        "FROM expenses GROUP BY week",
+    defaultQuery = "SELECT Id, date, strftime('%W', date) as week, SUM(amount) AS total "
+        + "FROM expenses GROUP BY week",
     hasTable = false
 )
-
-@UseModel
-@EBean
 public class WeekExpense extends Model {
 
     @Column String date;
