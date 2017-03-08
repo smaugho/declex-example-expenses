@@ -152,8 +152,10 @@
                 android:layout_marginTop="@dimen/origin_40dp"/>
         </RelativeLayout>
     </RelativeLayout>
+
     <include
         layout="@layout/fragment_modal_edit_expense"
         android:id="@+id/modalEditExpense"
         android:visibility = "gone"/>
+
 </FrameLayout>

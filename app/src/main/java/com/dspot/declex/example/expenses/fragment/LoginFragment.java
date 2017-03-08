@@ -15,12 +15,15 @@
  */
 package com.dspot.declex.example.expenses.fragment;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 
 import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Recollector;
+import com.dspot.declex.api.viewsinjection.Recollect;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.auth.Auth_;
 
@@ -29,6 +32,7 @@ import org.androidannotations.annotations.EFragment;
 
 import static com.dspot.declex.Action.$MainActivity;
 import static com.dspot.declex.Action.$NewAccountFragment;
+import static com.dspot.declex.Action.$ProgressDialog;
 import static com.dspot.declex.Action.$PutModel;
 import static com.dspot.declex.Action.$Toast;
 
@@ -40,16 +44,25 @@ import static com.dspot.declex.Action.$Toast;
 public class LoginFragment extends Fragment {
 
     @Model(orderBy = "login")
-    @Recollector(validate = true)
+    @Recollect(validate = true)
     Auth_ login;
 
-    @Action
+    @Click
     $NewAccountFragment btnCreateAccount;
 
     @Click
     void btnLogin() {
 
+        Dialog progressDialog = $ProgressDialog().message("Logging In...").dialog();
+        progressDialog.setCanceledOnTouchOutside(false);
+
         $PutModel(login);
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
+        }
+
+        progressDialog.dismiss();
 
         if (login.getSuccess() == 1) {
             $MainActivity();
@@ -57,7 +70,12 @@ public class LoginFragment extends Fragment {
         } else {
             $Toast(login.getMessage());
         }
+    }
 
+    @Click
+    void declexLink() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/smaugho/declex"));
+        startActivity(intent);
     }
 
     @Event

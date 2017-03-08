@@ -15,11 +15,12 @@
  */
 package com.dspot.declex.example.expenses.fragment;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Recollector;
+import com.dspot.declex.api.viewsinjection.Recollect;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.auth.Auth_;
 
@@ -28,6 +29,7 @@ import org.androidannotations.annotations.EFragment;
 
 import static com.dspot.declex.Action.$LoginFragment;
 import static com.dspot.declex.Action.$MainActivity;
+import static com.dspot.declex.Action.$ProgressDialog;
 import static com.dspot.declex.Action.$PutModel;
 import static com.dspot.declex.Action.$Toast;
 
@@ -39,12 +41,21 @@ import static com.dspot.declex.Action.$Toast;
 public class NewAccountFragment extends Fragment {
 
     @Model(orderBy = "sign-up")
-    @Recollector(validate = true)
+    @Recollect(validate = true)
     Auth_ signUp;
 
     @Click
     void btnSignUp() {
+        Dialog progressDialog = $ProgressDialog().message("Creating Account...").dialog();
+        progressDialog.setCanceledOnTouchOutside(false);
+
         $PutModel(signUp);
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
+        }
+
+        progressDialog.dismiss();
 
         if (signUp.getSuccess() == 1) {
             $MainActivity();

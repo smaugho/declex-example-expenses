@@ -19,7 +19,7 @@ import android.support.v4.app.Fragment;
 
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Populator;
+import com.dspot.declex.api.viewsinjection.Populate;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.WeekExpense;
 import com.dspot.declex.example.expenses.model.WeekExpense_;
@@ -39,7 +39,7 @@ import static com.dspot.declex.Action.$StatisticsDetailsFragment;
 public class StatisticsFragment extends Fragment {
 
     @Model
-    @Populator
+    @Populate
     List<WeekExpense> weekExpenses;
 
     @ItemClick

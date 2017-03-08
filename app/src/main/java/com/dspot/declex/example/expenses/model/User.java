@@ -23,7 +23,6 @@ import com.dspot.declex.api.localdb.LocalDBTransaction;
 import com.dspot.declex.api.model.AfterLoad;
 import com.dspot.declex.api.model.AfterPut;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.server.SerializeCondition;
 import com.dspot.declex.api.server.ServerModel;
 import com.dspot.declex.api.server.ServerRequest;
 import com.dspot.declex.api.util.annotation.CopyIgnore;
@@ -68,7 +67,7 @@ import java.util.List;
             name = "update",
             method = ServerRequest.RequestMethod.Put,
             action = "user/{remote_id}",
-            model = "this"
+            model = "update"
         ),
         @ServerRequest(
             name = "delete",
@@ -104,7 +103,15 @@ public class User extends BaseModel {
     @ConfirmPassword
     String confirmedPassword;
 
-    @Column boolean current;
+    @Column
+    @CopyIgnore
+    boolean current;
+
+    void update(User_ user) {
+        this.name = user.name;
+        this.email = user.email;
+        this.image = user.image;
+    }
 
     @AfterLoad
     @ServerModel
@@ -126,7 +133,6 @@ public class User extends BaseModel {
     }
 
     @AfterPut
-    @ServerModel
     void modelUpdated() {
         //Update the UI with the new data
         UpdateUIEvent_.post();

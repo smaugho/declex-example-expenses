@@ -16,16 +16,23 @@
     the License.
 
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.ExpensesListFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".fragment.ExpensesListFragment">
 
     <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            android:indeterminate="true"/>
 
         <RelativeLayout
             android:id="@+id/header"
@@ -46,7 +53,6 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/origin_16sp_text_size"
                 android:layout_toRightOf="@+id/tag"
-                android:layout_alignBottom="@+id/tag"
                 android:layout_centerVertical="true"
                 android:layout_alignTop="@+id/tag"
                 android:layout_marginLeft="@dimen/origin_10dp"/>
@@ -70,6 +76,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
+
             <LinearLayout
                 android:id="@+id/form"
                 android:layout_width="match_parent"
@@ -128,7 +135,6 @@
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/origin_16sp_text_size"
                     android:layout_toRightOf="@+id/tag2"
-                    android:layout_alignBottom="@+id/tag2"
                     android:layout_centerVertical="true"
                     android:layout_alignTop="@+id/tag2"
                     android:layout_marginLeft="@dimen/origin_10dp"/>
@@ -144,11 +150,12 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
+
         </LinearLayout>
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/expenses"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -174,4 +181,4 @@
         android:id="@+id/modalFilterDate"
         android:visibility = "gone"/>
 
-</FrameLayout>
+</RelativeLayout>

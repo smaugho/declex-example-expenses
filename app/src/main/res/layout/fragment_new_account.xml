@@ -46,7 +46,6 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/origin_16sp_text_size"
             android:layout_toRightOf="@+id/tag"
-            android:layout_alignBottom="@+id/tag"
             android:layout_centerVertical="true"
             android:layout_alignTop="@+id/tag"
             android:layout_marginLeft="@dimen/origin_10dp"/>

@@ -28,7 +28,7 @@ import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Populator;
+import com.dspot.declex.api.viewsinjection.Populate;
 import com.dspot.declex.event.Logout_;
 import com.dspot.declex.event.UpdateUIEvent;
 import com.dspot.declex.example.expenses.R;
@@ -39,6 +39,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import static com.dspot.declex.Action.$AlertDialog;
 import static com.dspot.declex.Action.$BackPressedEvent;
 import static com.dspot.declex.Action.$ExpensesListFragment;
 import static com.dspot.declex.Action.$LoginActivity;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     @Model
-    @Populator
+    @Populate
     @UpdateOnEvent(UpdateUIEvent.class)
     User_ user;
 
@@ -122,6 +123,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Event
     void onLogout() {
+        $AlertDialog().message("Are you sure you want to log out?")
+                    .positiveButton("OK").negativeButton("Cancel");
+
         new Delete().from(User_.class).execute();
         new Delete().from(Expense_.class).execute();
 

@@ -53,12 +53,14 @@
                 <ImageView
                     android:layout_width="@dimen/origin_12dp"
                     android:layout_height="@dimen/origin_12dp"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/drawer_mail"
                     android:layout_marginRight="@dimen/origin_4dp"/>
                 <TextView
                     android:id="@+id/user_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="email@user.com"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/origin_12sp_text_size"/>

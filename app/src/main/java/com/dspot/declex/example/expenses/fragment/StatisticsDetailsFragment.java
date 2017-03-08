@@ -19,7 +19,7 @@ import android.support.v4.app.Fragment;
 
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Populator;
+import com.dspot.declex.api.viewsinjection.Populate;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.Expense_;
 import com.dspot.declex.example.expenses.model.WeekExpense_;
@@ -39,11 +39,11 @@ import static com.dspot.declex.Action.$StatisticsFragment;
 public class StatisticsDetailsFragment extends Fragment {
 
     @FragmentArg
-    @Populator
+    @Populate
     WeekExpense_ weekExpense;
 
     @Model(query = "strftime('%W', date) = '{weekExpense.getWeek()}'", orderBy = "date DESC")
-    @Populator
+    @Populate
     List<Expense_> expenses;
 
     @Event

@@ -105,17 +105,18 @@ tools:context="com.dspot.declex.example.expenses.fragment.LoginFragment">
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/origin_12sp_text_size"
-        android:layout_marginTop="@dimen/origin_16dp"/>
+        android:padding="12dp"
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:text="Powered By DecleX"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/textView3"/>
+        android:textColor="@android:color/holo_blue_dark"
+        android:padding="12dp"
+        android:id="@+id/declexLink"/>
 
 </RelativeLayout>

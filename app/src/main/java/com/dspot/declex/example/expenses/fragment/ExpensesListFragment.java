@@ -15,6 +15,7 @@
  */
 package com.dspot.declex.example.expenses.fragment;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
@@ -24,9 +25,9 @@ import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
 import com.dspot.declex.api.localdb.LocalDBModel;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Populator;
-import com.dspot.declex.api.populator.Recollector;
 import com.dspot.declex.api.server.ServerModel;
+import com.dspot.declex.api.viewsinjection.Populate;
+import com.dspot.declex.api.viewsinjection.Recollect;
 import com.dspot.declex.event.UpdateUIEvent;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.Expense_;
@@ -37,7 +38,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
@@ -48,10 +48,12 @@ import static com.dspot.declex.Action.$AlertDialog;
 import static com.dspot.declex.Action.$Animate;
 import static com.dspot.declex.Action.$DateDialog;
 import static com.dspot.declex.Action.$ExpenseDetailsFragment;
-import static com.dspot.declex.Action.$GetModel;
+import static com.dspot.declex.Action.$LoadModel;
 import static com.dspot.declex.Action.$Populate;
+import static com.dspot.declex.Action.$ProgressDialog;
 import static com.dspot.declex.Action.$PutModel;
 import static com.dspot.declex.Action.$TimeDialog;
+import static com.dspot.declex.Action.$Toast;
 
 /**
  * Created by Adrián Rivero.
@@ -67,19 +69,19 @@ public class ExpensesListFragment extends Fragment {
     @Model
     User_ currentUser;
 
-    @Model(orderBy = "list", async = true)
+    @Model(orderBy = "list", async = true, lazy = true)
     @ServerModel
     List<Expense_> serverExpenses;
 
-    @Model(orderBy = "date DESC")
+    @Model(orderBy = "date DESC", async = true)
     @LocalDBModel
-    @Populator
+    @Populate
     @UpdateOnEvent(UpdateUIEvent.class)
     List<Expense_> expenses;
 
     @Model(lazy = true)
-    @Populator
-    @Recollector
+    @Populate
+    @Recollect
     Expense_ expense;
 
     @ViewById
@@ -87,6 +89,23 @@ public class ExpensesListFragment extends Fragment {
 
     @ViewById
     TextView txtDialogTitle;
+
+    @AfterViews
+    void updateExpensesFromServer(View progressBar) {
+        if (addExpense) {
+            btnAddExpense();
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        $LoadModel(serverExpenses);
+        if ($LoadModel.Failed) {
+            progressBar.setVisibility(View.GONE);
+            $Toast("An error occurred");
+        }
+
+        progressBar.setVisibility(View.GONE);
+    }
 
     @ItemClick
     void expenses(Expense_ model) {
@@ -98,14 +117,16 @@ public class ExpensesListFragment extends Fragment {
         $AlertDialog().title("Are you sure?").message("Are you sure you want to remove this expense?")
             .negativeButton("Cancel").positiveButton("Ok");
 
-        $PutModel(expense).query("delete").orderBy("delete");
-    }
+        Dialog progressDialog = $ProgressDialog().message("Removing...").dialog();
+        progressDialog.setCanceledOnTouchOutside(false);
 
-    @AfterViews
-    void addExpenseInit() {
-        if (addExpense) {
-            btnAddExpense();
+        $PutModel(expense).query("delete").orderBy("delete");
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
         }
+
+        progressDialog.dismiss();
     }
 
     @Click
@@ -116,8 +137,8 @@ public class ExpensesListFragment extends Fragment {
         expense.setUserId(currentUser.getRemoteId());
         $Populate(expense);
 
-        $Animate(modalEditExpense, R.anim.dialog_show);
         modalEditExpense.setVisibility(View.VISIBLE);
+        $Animate(modalEditExpense, R.anim.dialog_show);
     }
 
     @Click
@@ -127,14 +148,27 @@ public class ExpensesListFragment extends Fragment {
         expense = model;
         $Populate(expense);
 
-        $Animate(modalEditExpense, R.anim.dialog_show);
         modalEditExpense.setVisibility(View.VISIBLE);
+        $Animate(modalEditExpense, R.anim.dialog_show);
     }
 
     @Click
     void btnSave() {
         hideModals();
+
+        Dialog progressDialog = $ProgressDialog()
+                        .message(expense.getRemoteId() == 0? "Creating..." : "Saving...")
+                        .dialog();
+
+        progressDialog.setCanceledOnTouchOutside(false);
+
         $PutModel(expense).orderBy(expense.getRemoteId() == 0? "create" : "update");
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
+        }
+
+        progressDialog.dismiss();
     }
 
     boolean hideModals() {
@@ -172,18 +206,18 @@ public class ExpensesListFragment extends Fragment {
     @ViewById
     TextView filterDateFrom, filterDateTo, filterAmountMin, filterAmountMax, filterResultFrom, filterResultTo;
 
-    @OptionsItem
+    @Action
     void filter_date() {
         hideModals();
-        $Animate(modalFilterDate, R.anim.dialog_show);
         modalFilterDate.setVisibility(View.VISIBLE);
+        $Animate(modalFilterDate, R.anim.dialog_show);
     }
 
-    @OptionsItem
+    @Action
     void filter_amount() {
         hideModals();
-        $Animate(modalFilterAmount, R.anim.dialog_show);
         modalFilterAmount.setVisibility(View.VISIBLE);
+        $Animate(modalFilterAmount, R.anim.dialog_show);
     }
 
     @Click
@@ -210,7 +244,7 @@ public class ExpensesListFragment extends Fragment {
             query = query + "amount <= '" + max + "'";
         }
 
-        $GetModel(expenses).query(query);
+        $LoadModel(expenses).query(query);
     }
 
     @Click
@@ -237,13 +271,13 @@ public class ExpensesListFragment extends Fragment {
             query = query + "date <= '" + to + "'";
         }
 
-        $GetModel(expenses).query(query);
+        $LoadModel(expenses).query(query);
     }
 
     @Click
     void closeSearch() {
         filter_form.setVisibility(View.GONE);
-        $GetModel(expenses);
+        $LoadModel(expenses);
     }
 
 

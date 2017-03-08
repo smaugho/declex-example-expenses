@@ -15,6 +15,7 @@
  */
 package com.dspot.declex.example.expenses.fragment;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
@@ -23,8 +24,8 @@ import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Populator;
-import com.dspot.declex.api.populator.Recollector;
+import com.dspot.declex.api.viewsinjection.Populate;
+import com.dspot.declex.api.viewsinjection.Recollect;
 import com.dspot.declex.event.UpdateUIEvent;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.Expense_;
@@ -40,8 +41,10 @@ import static com.dspot.declex.Action.$AlertDialog;
 import static com.dspot.declex.Action.$Animate;
 import static com.dspot.declex.Action.$DateDialog;
 import static com.dspot.declex.Action.$ExpensesListFragment;
+import static com.dspot.declex.Action.$ProgressDialog;
 import static com.dspot.declex.Action.$PutModel;
 import static com.dspot.declex.Action.$TimeDialog;
+import static com.dspot.declex.Action.$Toast;
 
 /**
  * Created by Adrián Rivero.
@@ -50,14 +53,15 @@ import static com.dspot.declex.Action.$TimeDialog;
 @EFragment(R.layout.fragment_expense_details)
 public class ExpenseDetailsFragment extends Fragment {
 
-    @Populator
-    @FragmentArg
+    @FragmentArg    //The first load would be omitted cause' it is passed as FragmentArg
+    @Model(query = "remote_id={info.getRemoteId()}")
+    @Populate
     @UpdateOnEvent(UpdateUIEvent.class)
     Expense_ info;
 
     @Model(query = "remote_id={info.getRemoteId()}")
-    @Populator
-    @Recollector
+    @Populate
+    @Recollect
     Expense_ expense;
 
     @ViewById
@@ -68,20 +72,40 @@ public class ExpenseDetailsFragment extends Fragment {
         $AlertDialog().title("Are you sure?").message("Are you sure you want to remove this expense?")
                 .negativeButton("Cancel").positiveButton("Ok");
 
+        Dialog progressDialog = $ProgressDialog().message("Removing...").dialog();
+        progressDialog.setCanceledOnTouchOutside(false);
+
         $PutModel(expense).query("delete").orderBy("delete");
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
+        }
+
+        progressDialog.dismiss();
+
         $ExpensesListFragment();
     }
 
     @Click
     void editExpense() {
-        $Animate(modalEditExpense, R.anim.dialog_show);
         modalEditExpense.setVisibility(View.VISIBLE);
+        $Animate(modalEditExpense, R.anim.dialog_show);
     }
 
     @Click
     void btnSave() {
         hideDialog();
+
+        Dialog progressDialog = $ProgressDialog().message("Saving...").dialog();
+        progressDialog.setCanceledOnTouchOutside(false);
+
         $PutModel(expense).orderBy("update");
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
+        }
+
+        progressDialog.dismiss();
     }
 
     @Click

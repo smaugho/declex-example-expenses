@@ -10,8 +10,8 @@ buildscript {
     }
 }
 dependencies {
-    apt 'com.dspot:declex:1.2.9-SNAPSHOT'
-    compile 'com.dspot:declex-api:1.2.9-SNAPSHOT'
+    apt 'com.dspot:declex:1.2.1.1'
+    compile 'com.dspot:declex-api:1.2.1.1'
 }
 
 apt {
@@ -25,13 +25,13 @@ apt {
 }
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.dspot.declex.example.expenses"
-        minSdkVersion 9
-        targetSdkVersion 22
+        minSdkVersion 19
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -46,7 +46,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:appcompat-v7:22.+'
-    compile 'com.android.support:support-v4:22.+'
-    compile 'com.android.support:design:22.+'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:support-v4:25.1.1'
+    compile 'com.android.support:design:25.1.1'
 }

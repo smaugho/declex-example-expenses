@@ -15,14 +15,15 @@
  */
 package com.dspot.declex.example.expenses.fragment;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
-import com.dspot.declex.api.populator.Populator;
-import com.dspot.declex.api.populator.Recollector;
+import com.dspot.declex.api.viewsinjection.Populate;
+import com.dspot.declex.api.viewsinjection.Recollect;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.User;
 
@@ -31,7 +32,9 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import static com.dspot.declex.Action.$Animate;
+import static com.dspot.declex.Action.$ProgressDialog;
 import static com.dspot.declex.Action.$PutModel;
+import static com.dspot.declex.Action.$Toast;
 
 /**
  * Created by Adrián Rivero.
@@ -41,8 +44,8 @@ import static com.dspot.declex.Action.$PutModel;
 public class ProfileFragment extends Fragment {
 
     @Model
-    @Populator
-    @Recollector(validate = true)
+    @Populate
+    @Recollect(validate = true)
     User user;
 
     @ViewById
@@ -50,19 +53,38 @@ public class ProfileFragment extends Fragment {
 
     @Click
     void btnChangePass() {
-        $Animate(modalChangePassword, R.anim.dialog_show);
         modalChangePassword.setVisibility(View.VISIBLE);
+        $Animate(modalChangePassword, R.anim.dialog_show);
     }
 
     @Click
     void btnSavePassword() {
+        Dialog progressDialog = $ProgressDialog().message("Saving...").dialog();
+        progressDialog.setCanceledOnTouchOutside(false);
+
         $PutModel(user).fields("password, confirmedPassword").orderBy("update");
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
+        }
+
+        progressDialog.dismiss();
+
         hideDialog();
     }
 
     @Click
     void btnSave() {
+        Dialog progressDialog = $ProgressDialog().message("Saving...").dialog();
+        progressDialog.setCanceledOnTouchOutside(false);
+
         $PutModel(user).fields("name, email").orderBy("update");
+        if ($PutModel.Failed) {
+            progressDialog.dismiss();
+            $Toast("An error occurred");
+        }
+
+        progressDialog.dismiss();
     }
 
     @Action
