@@ -2,7 +2,7 @@
 
 On this example, all the following [DecleX](https://github.com/smaugho/declex) features are used:
 
-* Populators and Recollectors.
+* Populating and Recollecting.
 * Validation of data when Recollecting from the User Interface.
 * Connecting to a back-end server using OAuth 2.0.
 * Use of Actions in the methods.
