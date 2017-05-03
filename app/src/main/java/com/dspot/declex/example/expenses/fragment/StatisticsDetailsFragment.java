@@ -15,7 +15,12 @@
  */
 package com.dspot.declex.example.expenses.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
@@ -29,6 +34,7 @@ import org.androidannotations.annotations.FragmentArg;
 
 import java.util.List;
 
+import static com.dspot.declex.Action.$AlertDialog;
 import static com.dspot.declex.Action.$StatisticsFragment;
 
 /**

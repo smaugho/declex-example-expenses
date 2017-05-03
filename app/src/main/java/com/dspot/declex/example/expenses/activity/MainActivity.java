@@ -24,12 +24,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.activeandroid.query.Delete;
-import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
 import com.dspot.declex.api.model.Model;
+import com.dspot.declex.api.runwith.RunWith;
 import com.dspot.declex.api.viewsinjection.Populate;
-import com.dspot.declex.event.Logout_;
 import com.dspot.declex.event.UpdateUIEvent;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.Expense_;
@@ -43,8 +42,10 @@ import static com.dspot.declex.Action.$AlertDialog;
 import static com.dspot.declex.Action.$BackPressedEvent;
 import static com.dspot.declex.Action.$ExpensesListFragment;
 import static com.dspot.declex.Action.$LoginActivity;
+import static com.dspot.declex.Action.$Logout;
 import static com.dspot.declex.Action.$ProfileFragment;
 import static com.dspot.declex.Action.$StatisticsFragment;
+import static com.dspot.declex.Action.$Toast;
 
 /**
  * Created by Adrián Rivero.
@@ -67,12 +68,8 @@ public class MainActivity extends AppCompatActivity implements
 
     MenuItem prevCheckedItem = null;
 
-    @Action $ExpensesListFragment newExpensesListFragment = $ExpensesListFragment().addExpense(true);
-    @Action $ExpensesListFragment expensesListFragment;
-    @Action $StatisticsFragment statisticsFragment;
-    @Action $ProfileFragment profileFragment;
-
-    @Action $ExpensesListFragment onCreate;
+    @RunWith
+    $ExpensesListFragment onCreate;
 
     @AfterViews
     void initMaterial(Toolbar toolbar) {
@@ -97,23 +94,23 @@ public class MainActivity extends AppCompatActivity implements
 
         switch (menuItem.getItemId()) {
             case R.id.nav_expenses_list:
-                expensesListFragment.fire();
+                $ExpensesListFragment();
                 break;
 
             case R.id.nav_expenses_per_week_list:
-                statisticsFragment.fire();
+                $StatisticsFragment();
                 break;
 
             case R.id.nav_new_expense:
-                newExpensesListFragment.fire();
+                $ExpensesListFragment().addExpense(true);
                 break;
 
             case R.id.nav_profile:
-                profileFragment.fire();
+                $ProfileFragment();
                 break;
 
             case R.id.nav_logout:
-                Logout_.post();
+                $Logout();
                 break;
         }
 
@@ -122,10 +119,19 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Event
-    void onLogout() {
-        $AlertDialog().message("Are you sure you want to log out?")
-                    .positiveButton("OK").negativeButton("Cancel");
+    void onLogout(String message) {
+        if (message != null) {
+            {$Toast(message);}
+            logout();
+            return;
+        }
 
+        $AlertDialog().message("Are you sure you want to log out?")
+                      .positiveButton("OK").negativeButton("Cancel");
+        logout();
+    }
+
+    void logout() {
         new Delete().from(User_.class).execute();
         new Delete().from(Expense_.class).execute();
 
@@ -133,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements
         finish();
     }
 
-    @Action
     @Override
     public void onBackPressed() {
         $BackPressedEvent();

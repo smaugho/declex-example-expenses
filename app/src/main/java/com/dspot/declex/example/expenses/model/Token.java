@@ -21,6 +21,8 @@ import com.dspot.declex.api.localdb.LocalDBModel;
 import com.dspot.declex.api.model.AfterLoad;
 import com.dspot.declex.event.Logout_;
 
+import static com.dspot.declex.Action.$Logout;
+
 /**
  * Created by Adrián Rivero.
  */
@@ -41,7 +43,7 @@ public class Token extends Model {
 	@AfterLoad
 	void logoutIfExpired() {
 		if (access_token == null) {
-			Logout_.post();
+			$Logout("Your token expired");
 		}
 	}
 }

@@ -20,7 +20,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
 import com.dspot.declex.api.localdb.LocalDBModel;
@@ -38,6 +37,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
@@ -114,7 +114,7 @@ public class ExpensesListFragment extends Fragment {
 
     @Click
     void deleteExpense() {
-        $AlertDialog().title("Are you sure?").message("Are you sure you want to remove this expense?")
+        $AlertDialog().title("Are you sure?").message("Are you sure you want to remove the selected expense?")
             .negativeButton("Cancel").positiveButton("Ok");
 
         Dialog progressDialog = $ProgressDialog().message("Removing...").dialog();
@@ -156,13 +156,17 @@ public class ExpensesListFragment extends Fragment {
     void btnSave() {
         hideModals();
 
-        Dialog progressDialog = $ProgressDialog()
-                        .message(expense.getRemoteId() == 0? "Creating..." : "Saving...")
-                        .dialog();
+        String[][] parameters = {
+            {"Creating...", "create", ""},
+            {"Saving...", "update", "description, comment, amount, date, time"}
+        };
 
+        String[] params = expense.getRemoteId() == 0? parameters[0] : parameters[1];
+
+        Dialog progressDialog = $ProgressDialog().message(params[0]).dialog();
         progressDialog.setCanceledOnTouchOutside(false);
 
-        $PutModel(expense).orderBy(expense.getRemoteId() == 0? "create" : "update");
+        $PutModel(expense).orderBy(params[1]).fields(params[2]);
         if ($PutModel.Failed) {
             progressDialog.dismiss();
             $Toast("An error occurred");
@@ -183,12 +187,9 @@ public class ExpensesListFragment extends Fragment {
         return false;
     }
 
-    @Action
     void hideDialog(final View dialog) {
         $Animate(dialog, R.anim.dialog_hide);
-        if ($Animate.Ended) {
-            dialog.setVisibility(View.INVISIBLE);
-        }
+        dialog.setVisibility(View.INVISIBLE);
     }
 
     @Event
@@ -206,14 +207,14 @@ public class ExpensesListFragment extends Fragment {
     @ViewById
     TextView filterDateFrom, filterDateTo, filterAmountMin, filterAmountMax, filterResultFrom, filterResultTo;
 
-    @Action
+    @OptionsItem
     void filter_date() {
         hideModals();
         modalFilterDate.setVisibility(View.VISIBLE);
         $Animate(modalFilterDate, R.anim.dialog_show);
     }
 
-    @Action
+    @OptionsItem
     void filter_amount() {
         hideModals();
         modalFilterAmount.setVisibility(View.VISIBLE);

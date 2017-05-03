@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 
-import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
 import com.dspot.declex.api.viewsinjection.Recollect;
@@ -30,6 +29,7 @@ import com.dspot.declex.example.expenses.auth.Auth_;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
+import static com.dspot.declex.Action.$AlertDialog;
 import static com.dspot.declex.Action.$MainActivity;
 import static com.dspot.declex.Action.$NewAccountFragment;
 import static com.dspot.declex.Action.$ProgressDialog;

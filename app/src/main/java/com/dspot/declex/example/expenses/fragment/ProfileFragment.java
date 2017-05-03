@@ -19,7 +19,6 @@ import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.model.Model;
 import com.dspot.declex.api.viewsinjection.Populate;
@@ -68,8 +67,9 @@ public class ProfileFragment extends Fragment {
             $Toast("An error occurred");
         }
 
-        progressDialog.dismiss();
+        $Toast("Password updated");
 
+        progressDialog.dismiss();
         hideDialog();
     }
 
@@ -87,12 +87,9 @@ public class ProfileFragment extends Fragment {
         progressDialog.dismiss();
     }
 
-    @Action
     void hideDialog() {
         $Animate(modalChangePassword, R.anim.dialog_hide);
-        if ($Animate.Ended) {
-            modalChangePassword.setVisibility(View.INVISIBLE);
-        }
+        modalChangePassword.setVisibility(View.INVISIBLE);
     }
 
     @Event

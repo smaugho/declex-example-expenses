@@ -17,8 +17,8 @@ package com.dspot.declex.example.expenses.activity;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.model.Model;
+import com.dspot.declex.api.runwith.RunWith;
 import com.dspot.declex.example.expenses.R;
 import com.dspot.declex.example.expenses.model.User_;
 
@@ -38,7 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     @Model
     User_ currentUser;
 
-    @Action
+
+    @RunWith
     void onCreate() {
         if (currentUser.exists()) {
             $MainActivity();
@@ -48,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Action
     @Override
     public void onBackPressed() {
         $BackPressedEvent();

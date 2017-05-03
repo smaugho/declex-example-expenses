@@ -20,7 +20,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
-import com.dspot.declex.api.action.Action;
 import com.dspot.declex.api.eventbus.Event;
 import com.dspot.declex.api.eventbus.UpdateOnEvent;
 import com.dspot.declex.api.model.Model;
@@ -99,7 +98,7 @@ public class ExpenseDetailsFragment extends Fragment {
         Dialog progressDialog = $ProgressDialog().message("Saving...").dialog();
         progressDialog.setCanceledOnTouchOutside(false);
 
-        $PutModel(expense).orderBy("update");
+        $PutModel(expense).orderBy("update").fields("description, comment, amount, date, time");
         if ($PutModel.Failed) {
             progressDialog.dismiss();
             $Toast("An error occurred");
@@ -124,12 +123,9 @@ public class ExpenseDetailsFragment extends Fragment {
         expense_time.setText(String.format(Locale.US, "%02d:%02d", $hour, $minute));
     }
 
-    @Action
     void hideDialog() {
         $Animate(modalEditExpense, R.anim.dialog_hide);
-        if ($Animate.Ended) {
-            modalEditExpense.setVisibility(View.INVISIBLE);
-        }
+        modalEditExpense.setVisibility(View.INVISIBLE);
     }
 
     @Event

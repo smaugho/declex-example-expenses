@@ -26,7 +26,6 @@ import com.dspot.declex.api.model.Model;
 import com.dspot.declex.api.server.ServerModel;
 import com.dspot.declex.api.server.ServerRequest;
 import com.dspot.declex.api.util.annotation.CopyIgnore;
-import com.dspot.declex.event.UpdateUIEvent_;
 import com.dspot.declex.example.expenses.Config;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -36,6 +35,8 @@ import com.mobsandgeeks.saripaar.annotation.Password;
 import org.androidannotations.annotations.RootContext;
 
 import java.util.List;
+
+import static com.dspot.declex.Action.$UpdateUIEvent;
 
 /**
  * Created by Adrián Rivero.
@@ -128,13 +129,13 @@ public class User extends BaseModel {
             }
 
             //Update the UI with the new data
-            UpdateUIEvent_.post();
+            $UpdateUIEvent();
         }
     }
 
     @AfterPut
     void modelUpdated() {
         //Update the UI with the new data
-        UpdateUIEvent_.post();
+        $UpdateUIEvent();
     }
 }

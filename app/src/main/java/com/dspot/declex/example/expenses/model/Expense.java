@@ -23,12 +23,13 @@ import com.dspot.declex.api.model.AfterPut;
 import com.dspot.declex.api.model.Model;
 import com.dspot.declex.api.server.ServerModel;
 import com.dspot.declex.api.server.ServerRequest;
-import com.dspot.declex.event.UpdateUIEvent_;
 import com.dspot.declex.example.expenses.Config;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.util.List;
 import java.util.Locale;
+
+import static com.dspot.declex.Action.$UpdateUIEvent;
 
 /**
  * Created by Adrián Rivero.
@@ -111,7 +112,7 @@ public class Expense extends BaseModel {
             }
 
             //Update the UI with the new data
-            UpdateUIEvent_.post();
+            $UpdateUIEvent();
         }
     }
 
@@ -119,6 +120,11 @@ public class Expense extends BaseModel {
     @ServerModel
     void modelUpdated() {
         //Update the UI with the new data
-        UpdateUIEvent_.post();
+        $UpdateUIEvent();
+    }
+
+    @Override
+    public String toString() {
+        return description + " : " + amount;
     }
 }
